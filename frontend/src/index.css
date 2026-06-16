@@ -1,0 +1,239 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #f4f7fa;
+  color: #0d1117;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.app-header {
+  background: #0d1117;
+  padding: 16px 32px;
+  border-bottom: 3px solid #00b4d8;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.header-brand {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: white;
+}
+.header-sub {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #8898aa;
+  text-transform: uppercase;
+}
+.header-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #8898aa;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+.app-body {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.search-bar {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+.search-bar form {
+  display: flex;
+  gap: 8px;
+}
+.search-bar input {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1.5px solid #d1d9e0;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.search-bar input:focus {
+  outline: none;
+  border-color: #00b4d8;
+}
+.search-bar button {
+  padding: 9px 16px;
+  background: #00b4d8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.search-bar button:disabled { opacity: .5; }
+.error { color: #e53e3e; font-size: 13px; margin-top: 8px; }
+
+.manual-inputs {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.manual-inputs h3 {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #00b4d8;
+  margin-bottom: 8px;
+}
+.manual-inputs label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+.manual-inputs input,
+.manual-inputs select {
+  padding: 8px 12px;
+  border: 1.5px solid #d1d9e0;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: inherit;
+}
+.manual-inputs input:focus,
+.manual-inputs select:focus {
+  outline: none;
+  border-color: #00b4d8;
+}
+
+.right-panel {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  overflow: hidden;
+}
+
+.report-empty {
+  padding: 60px;
+  text-align: center;
+  color: #8898aa;
+  font-size: 14px;
+}
+
+.report-header {
+  background: #0d1117;
+  padding: 20px 24px;
+  text-align: center;
+  border-bottom: 3px solid #00b4d8;
+}
+.report-brand {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: white;
+}
+.report-sub {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #8898aa;
+  text-transform: uppercase;
+}
+.report-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #00b4d8;
+  margin-top: 8px;
+}
+.report-state {
+  font-size: 10px;
+  color: #8898aa;
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+.report-section { padding: 16px 24px; border-bottom: 1px solid #edf2f7; }
+.section-title {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #0077a8;
+  border-bottom: 1.5px solid #e0f7fc;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+
+.report-table { width: 100%; border-collapse: collapse; }
+.report-table tr:nth-child(even) td { background: #f4f7fa; }
+.report-table td {
+  padding: 7px 8px;
+  font-size: 13px;
+  border-bottom: 1px solid #edf2f7;
+}
+.report-table td:first-child {
+  font-weight: 600;
+  color: #4a5568;
+  width: 55%;
+}
+
+.stars-row {
+  display: flex;
+  gap: 12px;
+}
+.star-card {
+  flex: 1;
+  background: #f4f7fa;
+  border-radius: 6px;
+  padding: 12px 8px;
+  text-align: center;
+  border: 1.5px solid #d1d9e0;
+}
+.star-number {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1;
+}
+.star-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8898aa;
+  margin-top: 4px;
+}
+.pdf-btn {
+  width: 100%;
+  padding: 13px;
+  background: #0d1117;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background .15s;
+}
+.pdf-btn:hover { background: #1a2332; }
