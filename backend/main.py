@@ -1,15 +1,20 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import averages,provider,quality 
+from routes import averages, provider, quality
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ["http://localhost:5173", "https://infinite-facility-assessment.vercel.app", "https://*.vercel.app"],
-    allow_credentials = True,
-    allow_methods = ["*"],
-    allow_headers = ["*"]
+    allow_origins=[
+        "http://localhost:5173",
+        "https://nursing-facility-assessment.vercel.app",
+        "https://nursing-facility-assessment-generator.vercel.app",
+        "https://*.vercel.app"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(provider.router, prefix="/provider", tags=["Provider"])
