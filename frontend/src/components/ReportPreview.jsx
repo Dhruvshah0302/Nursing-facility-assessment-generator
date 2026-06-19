@@ -1,4 +1,5 @@
 import jsPDF from "jspdf";
+import logoImg from "../assets/logo.png";
 
 export default function ReportPreview({ facility, manual }) {
   if (!facility) {
@@ -35,15 +36,18 @@ export default function ReportPreview({ facility, manual }) {
     doc.setFillColor(0, 180, 216);
     doc.rect(0, 90, W, 3, "F");
 
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
-    doc.setTextColor(255, 255, 255);
-    doc.text("INFINITE", M, 36);
+  // Logo centered in PDF
+  const logoWidth = 60;
+  const logoHeight = 60;
+  const logoX = (W - logoWidth) / 2;  // this centers it
+  const img = new Image();
+  img.src = logoImg;
+  doc.addImage(img, "PNG", logoX, 12, logoWidth, logoHeight);
 
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(8);
-    doc.setTextColor(136, 152, 170);
-    doc.text("MANAGED BY MEDELITE", M, 50);
+doc.setFont("helvetica", "bold");
+doc.setFontSize(11);
+doc.setTextColor(0, 180, 216);
+doc.text("FACILITY ASSESSMENT SNAPSHOT", W / 2, 82, { align: "center" });
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
@@ -87,7 +91,7 @@ export default function ReportPreview({ facility, manual }) {
 
     // ── Facility Info ──
     sectionTitle("Facility Information");
-    tableRow("Name of Facility", facility.provider_name, false);
+    tableRow("Name of Facility", manual.facilityName || facility.provider_name, false);
     tableRow("Location", `${facility.provider_address}, ${facility.city_town}, ${facility.state} ${facility.zip_code}`, true);
     tableRow("EMR", manual.emr || "—", false);
     tableRow("Census Capacity", facility.number_of_certified_beds, true);
@@ -127,12 +131,15 @@ export default function ReportPreview({ facility, manual }) {
       doc.setTextColor(r, g, b);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(18);
-      doc.text(`${s.val} STAR`, cx + cardW / 2, y + 22, { align: "center" });
+      doc.text(s.val?.toString() || "—", cx + cardW / 2, y + 16, { align: "center" });
+
+      doc.setFontSize(6);
+      doc.text("STARS", cx + cardW / 2, y + 26, { align: "center" });
 
       doc.setTextColor(136, 152, 170);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(7);
-      doc.text(s.label.toUpperCase(), cx + cardW / 2, y + 36, { align: "center" });
+      doc.text(s.label.toUpperCase(), cx + cardW / 2, y + 38, { align: "center" });
 
       cx += cardW + 8;
     });
@@ -170,7 +177,7 @@ export default function ReportPreview({ facility, manual }) {
     const today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     doc.text(`Generated ${today} · INFINITE — Managed by Medelite`, M, pageH - 14);
 
-    const filename = `Facility_Assessment_${facility.provider_name?.replace(/[^a-z0-9]/gi, "_").slice(0, 30)}.pdf`;
+    const filename = `Facility_Assessment_${(manual.facilityName || facility.provider_name)?.replace(/[^a-z0-9]/gi, "_").slice(0, 30)}.pdf`;
     doc.save(filename);
   }
 
@@ -179,8 +186,9 @@ export default function ReportPreview({ facility, manual }) {
 
       {/* Header */}
       <div className="report-header">
-        <div className="report-brand">INFINITE</div>
-        <div className="report-sub">Managed by Medelite</div>
+        <div className="report-header-top">
+          <img src={logoImg} alt="Infinite" className="report-logo" />
+        </div>
         <div className="report-title">FACILITY ASSESSMENT SNAPSHOT</div>
         <div className="report-state">{facility.state || ""}</div>
       </div>
@@ -190,7 +198,7 @@ export default function ReportPreview({ facility, manual }) {
         <div className="section-title">Facility Information</div>
         <table className="report-table">
           <tbody>
-            <tr><td>Name of Facility</td><td>{facility.provider_name || "—"}</td></tr>
+            <tr><td>Name of Facility</td><td>{manual.facilityName || facility.provider_name || "—"}</td></tr>
             <tr><td>Location</td><td>{facility.provider_address}, {facility.city_town}, {facility.state} {facility.zip_code}</td></tr>
             <tr><td>EMR</td><td>{manual.emr || "—"}</td></tr>
             <tr><td>Census Capacity</td><td>{facility.number_of_certified_beds || "—"}</td></tr>

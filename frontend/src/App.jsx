@@ -3,6 +3,7 @@ import SearchBar from "./components/SearchBar";
 import ManualInputs from "./components/ManualInputs";
 import ReportPreview from "./components/ReportPreview";
 import { fetchProvider, fetchQuality, fetchAverages } from "./services/api";
+import logoImg from "./assets/logo.png"
 import "./index.css";
 
 export default function App() {
@@ -32,14 +33,15 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <div className="header-brand">INFINITE</div>
-        <div className="header-sub">Managed by Medelite</div>
+        <img src={logoImg} alt="Infinite logo" className="header-logo" /> 
         <div className="header-title">Facility Assessment Report Generator</div>
       </header>
       <div className="app-body">
         <div className="left-panel">
           <SearchBar onSearch={handleSearch} loading={loading} error={error} />
-          <ManualInputs onChange={setManual} />
+          <ManualInputs onChange={setManual}
+            facilityName={facility?.provider_name} 
+            />
         </div>
         <div className="right-panel">
           <ReportPreview facility={facility} manual={manual} />

@@ -1,4 +1,4 @@
-export default function ManualInputs({ onChange }) {
+export default function ManualInputs({ onChange, facilityName }) {
   function handle(e) {
     onChange(prev => ({ ...prev, [e.target.name]: e.target.value }));
   }
@@ -6,6 +6,16 @@ export default function ManualInputs({ onChange }) {
   return (
     <div className="manual-inputs">
       <h3>Manual Inputs</h3>
+
+      <label>Facility Name Override</label>
+      <input
+        name="facilityName"
+        placeholder={facilityName || "Auto-filled from CMS"}
+        defaultValue={facilityName || ""}
+        onChange={handle}
+        key={facilityName}
+      />
+      <div className="field-hint">Leave blank to use CMS name</div>
 
       <label>EMR System</label>
       <input name="emr" placeholder="e.g. PCC" onChange={handle} />
